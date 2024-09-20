@@ -1,0 +1,38 @@
+### Listar todos os todos
+GET http://localhost:3000/todos
+
+### Criar um novo todo
+POST http://localhost:3000/todos
+Content-Type: application/json
+
+{
+  "title": "Comprar leite",
+  "userId": 1
+}
+
+### Obter um todo específico
+GET http://localhost:3000/todos/1
+
+### Atualizar um todo
+PUT http://localhost:3000/todos/1
+Content-Type: application/json
+
+{
+  "title": "Comprar leite desnatado",
+  "done": true
+}
+
+### Excluir um todo
+DELETE http://localhost:3000/todos/1
+
+### Criar outro todo
+POST http://localhost:3000/todos
+Content-Type: application/json
+
+{
+  "title": "Fazer exercícios",
+  "userId": 2
+}
+
+### Listar todos novamente para ver as mudanças
+GET http://localhost:3000/todos

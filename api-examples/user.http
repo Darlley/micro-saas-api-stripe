@@ -1,0 +1,25 @@
+GET http://localhost:3000/users
+
+### Criar um novo usuário
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "nome": "João Silva",
+  "email": "joao.silva@exemplo.com"
+}
+
+### Obter um usuário específico (substitua {id} pelo ID real)
+GET http://localhost:3000/users/{id}
+
+### Atualizar um usuário (substitua {id} pelo ID real)
+PUT http://localhost:3000/users/1
+Content-Type: application/json
+
+{
+  "nome": "João Silva Atualizado",
+  "email": "joao.silva.novo@exemplo.com"
+}
+
+### Excluir um usuário (substitua {id} pelo ID real)
+DELETE http://localhost:3000/users/{id}
