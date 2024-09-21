@@ -31,7 +31,7 @@ export const getUserController = async (request: Request, response: Response) =>
   try {
     const { id } = request.params;
     const user = await prisma.user.findUnique({
-      where: { id: Number(id) },
+      where: { id: id as string },
     });
     if (user) {
       response.status(200).json(user);
@@ -50,7 +50,7 @@ export const updateUserController = async (request: Request, response: Response)
     const { id } = request.params;
     const { nome, email } = request.body;
     const updatedUser = await prisma.user.update({
-      where: { id: Number(id) },
+      where: { id: id as string },
       data: { nome, email },
     });
     response.status(200).json(updatedUser);
@@ -65,7 +65,7 @@ export const deleteUserController = async (request: Request, response: Response)
   try {
     const { id } = request.params;
     await prisma.user.delete({
-      where: { id: Number(id) },
+      where: { id: id },
     });
     response.status(204).send();
   } catch (error) {

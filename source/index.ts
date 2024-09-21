@@ -13,6 +13,7 @@ import {
   updateTodoController,
   deleteTodoController
 } from './controllers/todo.controller';
+import { createCheckoutController } from './controllers/checkout.controller';
 
 const app = express();
 const port = 3000;
@@ -32,6 +33,8 @@ app.post('/todos', createTodoController);
 app.get('/todos/:id', getTodoController);
 app.put('/todos/:id', updateTodoController);
 app.delete('/todos/:id', deleteTodoController);
+
+app.post('/checkout', createCheckoutController);
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);

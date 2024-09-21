@@ -6,15 +6,15 @@ POST http://localhost:3000/todos
 Content-Type: application/json
 
 {
-  "title": "Comprar leite",
-  "userId": 1
+  "title": "Treinar super saiyajin blue",
+  "userId": "3993ee0d-2c0c-448f-9d5d-f7185a9d9429"
 }
 
 ### Obter um todo específico
-GET http://localhost:3000/todos/1
+GET http://localhost:3000/todos/3993ee0d-2c0c-448f-9d5d-f7185a9d9429
 
 ### Atualizar um todo
-PUT http://localhost:3000/todos/1
+PUT http://localhost:3000/todos/3993ee0d-2c0c-448f-9d5d-f7185a9d9429
 Content-Type: application/json
 
 {
@@ -23,7 +23,7 @@ Content-Type: application/json
 }
 
 ### Excluir um todo
-DELETE http://localhost:3000/todos/1
+DELETE http://localhost:3000/todos/3993ee0d-2c0c-448f-9d5d-f7185a9d9429
 
 ### Criar outro todo
 POST http://localhost:3000/todos

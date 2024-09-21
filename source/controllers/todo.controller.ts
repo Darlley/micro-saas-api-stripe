@@ -19,7 +19,7 @@ export const createTodoController = async (request: Request, response: Response)
   try {
     const { title, userId } = request.body;
     const newTodo = await prisma.todo.create({
-      data: { title, userId: Number(userId) },
+      data: { title, userId: userId },
       include: { user: true },
     });
     response.status(201).json(newTodo);

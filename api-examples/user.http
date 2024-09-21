@@ -5,8 +5,8 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "nome": "João Silva",
-  "email": "joao.silva@exemplo.com"
+  "nome": "Goku",
+  "email": "goku@exemplo.com"
 }
 
 ### Obter um usuário específico (substitua {id} pelo ID real)
@@ -22,4 +22,4 @@ Content-Type: application/json
 }
 
 ### Excluir um usuário (substitua {id} pelo ID real)
-DELETE http://localhost:3000/users/{id}
+DELETE http://localhost:3000/users/1

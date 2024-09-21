@@ -1,0 +1,7 @@
+### Criar um checkout
+POST http://localhost:3000/checkout
+Content-Type: application/json
+
+{
+  "userId": "3993ee0d-2c0c-448f-9d5d-f7185a9d9429"
+}
