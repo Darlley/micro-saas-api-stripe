@@ -22,7 +22,8 @@ export const createCheckoutController = async (req: Request, res: Response) => {
     }
 
     // Continuar com a lógica de criação do checkout
-    const checkout = await createCheckoutSession(userId);
+    const checkout = await createCheckoutSession(user.id, user.email);
+
     return res.send(checkout);
   } catch (error) {
     console.error('Erro ao verificar usuário:', error);

@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express';
 import prisma from '../lib/prisma';
+import { createStripeCustomer } from '../lib/stripe';
 
 // Listar usuários (Read - List)
 export const listUserController = async (request: Request, response: Response) => {
@@ -16,9 +17,14 @@ export const listUserController = async (request: Request, response: Response) =
 export const createUserController = async (request: Request, response: Response) => {
   try {
     const { nome, email } = request.body;
+    
+    const customer = await createStripeCustomer(email, nome);
+    
     const newUser = await prisma.user.create({
-      data: { nome, email },
+      data: { nome, email, stripeCustomerId: customer.id },
     });
+
+
     response.status(201).json(newUser);
   } catch (error) {
     console.error('Erro ao criar usuário:', error);

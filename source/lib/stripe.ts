@@ -8,13 +8,37 @@ export const stripe = new Stripe(config.stripe.secretKey, {
   httpClient: Stripe.createFetchHttpClient(),
 });
 
+export const getStripeCustomerByEmail = async (email: string) => {
+  const customer = await stripe.customers.search({
+    query: `email:"${email}"`,
+  });
+  return customer.data[0];
+};
+
+export const createStripeCustomer = async (userEmail: string, userName?: string) => {
+  let customer = await getStripeCustomerByEmail(userEmail);
+
+  if (!customer) {
+    customer = await stripe.customers.create({
+      email: userEmail,
+      name: userName,
+    });
+
+    return customer;
+  }
+
+  return customer;
+}
+
 /**
  * Cria uma sessão de checkout do Stripe para um usuário específico.
  * @param userId - O ID do usuário para quem a sessão de checkout está sendo criada.
  * @returns Um objeto contendo a URL da sessão de checkout ou uma mensagem de erro.
  */
-export const createCheckoutSession = async (userId: string) => {
+export const createCheckoutSession = async (userId: string, userEmail: string) => {
   try {
+    let customer = await createStripeCustomer(userEmail);
+    
     // Verifica se o ID de preço do plano Pro está configurado
     if (!config.stripe.proPriceId) {
       throw new Error('ID de preço não configurado');
@@ -25,6 +49,7 @@ export const createCheckoutSession = async (userId: string) => {
       payment_method_types: ['card'], // Aceita pagamentos com cartão
       mode: 'subscription', // Modo de assinatura
       client_reference_id: userId, // Referência ao usuário no sistema
+      customer: customer.id,
       success_url: 'http://localhost:3000/?success=true', // URL de redirecionamento em caso de sucesso
       cancel_url: 'http://localhost:3000/?success=false', // URL de redirecionamento em caso de cancelamento
       line_items: [
@@ -43,11 +68,7 @@ export const createCheckoutSession = async (userId: string) => {
       url: session.url,
     };
   } catch (error) {
-    // Loga o erro e retorna uma mensagem de erro genérica
-    console.error('Erro ao criar sessão de checkout:', error);
-    return {
-      error: 'Erro ao gerar o checkout: ' + (error as Error).message,
-    };
+    throw error;
   }
 };
 
