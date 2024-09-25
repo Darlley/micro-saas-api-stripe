@@ -14,9 +14,12 @@ import {
   deleteTodoController
 } from './controllers/todo.controller';
 import { createCheckoutController } from './controllers/checkout.controller';
+import { stripeWebhookController } from './controllers/stripe.controller';
 
 const app = express();
 const port = 3000;
+
+app.post('/stripe', express.raw({ type: 'application/json' }), stripeWebhookController);
 
 app.use(express.json()); // Adiciona middleware para parsing de JSON
 
