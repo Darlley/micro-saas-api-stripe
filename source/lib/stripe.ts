@@ -9,8 +9,8 @@ export const stripe = new Stripe(config.stripe.secretKey, {
 });
 
 export const getStripeCustomerByEmail = async (email: string) => {
-  const customer = await stripe.customers.search({
-    query: `email:"${email}"`,
+  const customer = await stripe.customers.list({
+    email
   });
   return customer.data[0];
 };
@@ -57,10 +57,7 @@ export const createCheckoutSession = async (userId: string, userEmail: string) =
           price: config.stripe.proPriceId, // ID do preço do plano Pro
           quantity: 1, // Quantidade do item (assinatura)
         },
-      ],
-      subscription_data: {
-        trial_period_days: 7,
-      },
+      ]
     });
 
     // Retorna a URL da sessão de checkout
@@ -77,9 +74,9 @@ export const handleProcessWebhookCheckout = async (event: Stripe.Checkout.Sessio
   const clientReferenceId = event.client_reference_id;
   const stripeSubscriptionId = event.subscription as string;
   const stripeCustomerId = event.customer as string;
-  const checkoutStatus = event.status;
+  const stripeSubscriptionStatus = event.status;
 
-  if (checkoutStatus !== 'complete') return;
+  if (stripeSubscriptionStatus !== 'complete') return;
 
   if (!clientReferenceId || !stripeSubscriptionId || !stripeCustomerId)
     throw new Error(
@@ -99,10 +96,11 @@ export const handleProcessWebhookCheckout = async (event: Stripe.Checkout.Sessio
 
   await prisma.user.update({
     where: {
-      id: userExists?.id,
+      id: clientReferenceId,
     },
     data: {
       stripeSubscriptionId,
+      stripeSubscriptionStatus,
       stripeCustomerId,
     },
   });

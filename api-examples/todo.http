@@ -6,8 +6,8 @@ POST http://localhost:3000/todos
 Content-Type: application/json
 
 {
-  "title": "Treinar super saiyajin blue",
-  "userId": "3993ee0d-2c0c-448f-9d5d-f7185a9d9429"
+  "title": "Treinar o rasengan",
+  "userId": "1bc9e65b-7755-48ed-b341-6f37f7076018"
 }
 
 ### Obter um todo específico

@@ -7,7 +7,7 @@ Content-Type: application/json
 
 {
   "nome": "Naruto",
-  "email": "Naruto@exemplo.com"
+  "email": "naruto@exemplo.com"
 }
 
 ### Obter um usuário específico (substitua {id} pelo ID real)

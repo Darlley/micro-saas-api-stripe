@@ -3,5 +3,5 @@ POST http://localhost:3000/checkout
 Content-Type: application/json
 
 {
-  "userId": "74b17ea7-21fe-4fd8-84b9-94c5d42e0b6d"
+  "userId": "2de164fa-9b50-47e8-ad0e-8e7f848fefaf"
 }
